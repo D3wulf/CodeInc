@@ -1,4 +1,4 @@
-# New CodeInc based in AdminPro of Angular
+# AdminPro
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
 
