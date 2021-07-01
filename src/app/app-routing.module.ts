@@ -1,42 +1,32 @@
 import { NgModule, PipeTransform } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { ProgressComponent } from './pages/progress/progress.component';
-import { Grafica1Component } from './pages/grafica1/grafica1.component';
 
-import { PagesComponent } from './pages/pages.component';
-import { ErrorpageComponent } from './pages/errorpage/errorpage.component';
+import { PagesRoutingModule } from './pages/pages.routing';
+import { AuthRoutingModule } from './auth/auth.routing';
+
+import { ErrorpageComponent } from './errorpage/errorpage.component';
+
 
 const routes: Routes = [
-  //Rutas protegidas
-  {
-    path:'', component:PagesComponent,
 
-    //RUTAS HIJAS, UNA OPCION VALIDA Y SIMPLE SIN USAR EL MODULO
-    children:[
-      {
-        path:'dashboard', component:DashboardComponent
-      },{
-        path:'progress', component:ProgressComponent
-      },
-      {
-        path:'grafica1', component: Grafica1Component
-      },
-      {
-        path:'', redirectTo:'dashboard',pathMatch:'full'
-      },
+  //Lazyload
+  // {
+  //   path: 'dashboard',
+  //   loadChildren: ()=> import('./pages/pages.module').then(m=> m.PagesModule)
 
-    ]
-  },
-  //rutas públicas
+  // },
+  // {
+  //   path: 'auth',
+  //   loadChildren: ()=> import('./auth/auth.module').then(m=> m.AuthModule)
+
+  // },
   {
-    path:'login', component:LoginComponent
+    path:'',
+    redirectTo:'/dashboard',
+    pathMatch:'full'
   },
+  
   {
-    path:'register', component:RegisterComponent
-  },{
     path:'error', component:ErrorpageComponent
   },
 
@@ -46,7 +36,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),PagesRoutingModule,AuthRoutingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
