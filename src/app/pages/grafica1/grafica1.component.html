@@ -1,1 +1,13 @@
-<p>grafica1 works!</p>
+<h1>Gráficas de Barras</h1>
+<hr>
+
+<div class="row">
+
+
+    <div class="col-6">
+        <app-barra (alPadre)="delHijo(entrevista= $event)"></app-barra>
+    </div>
+    <div class="col-6">
+        <app-barra [titulo]="titulo" [labels2]="labels" [data1]="data" (alPadre)="delHijo(entrevista= $event)"></app-barra>
+    </div>
+</div>

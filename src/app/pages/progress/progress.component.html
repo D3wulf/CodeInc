@@ -1,1 +1,38 @@
-<p>progress works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                El Progreso!
+            </div>
+        </div>
+    </div>
+</div>
+<h4 class="card-title">Striped Progress bar</h4>
+<div class="progress m-t-20">
+    <div class="progress-bar active bg-warning progress-bar-striped" style="height:10px;" [style.width]="getProgreso1" role="progressbar">
+    </div>
+</div>
+<div class="progress m-t-20">
+    <div class="progress-bar active bg-info progress-bar-striped" style="height:10px;" [style.width]="getProgreso2" role="progressbar">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+
+                <app-incrementador cambioBtn="btn btn-warning" (valorAlPadre)="progreso1 = $event" [progreso]="progreso1"></app-incrementador>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <!-- No cerramos en llaves el cambioBtn porque necesitamos que coja la clase de forma literal -->
+                <app-incrementador (valorAlPadre)="progreso2 = $event" [progreso]="progreso2"></app-incrementador>
+
+            </div>
+        </div>
+    </div>
+</div>

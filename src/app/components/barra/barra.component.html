@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-body">
+        <h3>{{titulo}}</h3>
+        <div style="display: block">
+            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
+            </canvas>
+        </div>
+        <h5>Prueba de Output -- {{entrevistas}}</h5>
+        <input type="number" name="entrevista" class="form-control" #entrevista placeholder="Añadir">
+        <button class="btn btn-primary" (click)="addEntrevista(1)">Añadir algo</button>
+
+    </div>
+</div>

@@ -13,11 +13,13 @@ import { ErrorpageComponent } from './errorpage/errorpage.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     
     ErrorpageComponent,
+         
     
     
   ],
