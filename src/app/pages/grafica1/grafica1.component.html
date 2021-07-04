@@ -5,9 +5,11 @@
 
 
     <div class="col-6">
+        <!-- DATOS QUE SALEN DEL HIJO -->
         <app-barra (alPadre)="delHijo(entrevista= $event)"></app-barra>
     </div>
     <div class="col-6">
-        <app-barra [titulo]="titulo" [labels2]="labels" [data1]="data" (alPadre)="delHijo(entrevista= $event)"></app-barra>
+        <!-- DATOS QUE VIENEN DEL PADRE -->
+        <app-barra [tituloInput]="tituloDelPadre" [titulo]="titulo" [sinInput]="noQuieroInput" [labels2]="labels" [data1]="data" (alPadre)="delHijo(entrevista= $event)"></app-barra>
     </div>
 </div>

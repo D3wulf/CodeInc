@@ -5,9 +5,9 @@
             <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
             </canvas>
         </div>
-        <h5>Prueba de Output -- {{entrevistas}}</h5>
-        <input type="number" name="entrevista" class="form-control" #entrevista placeholder="Añadir">
-        <button class="btn btn-primary" (click)="addEntrevista(1)">Añadir algo</button>
+        <h5>{{tituloInput}}</h5>
+        <input [disabled]="sinInput" type="number" name="entrevista" class="form-control" #entrevista placeholder="Añadir" [(ngModel)]="numero">
+        <button [disabled]="sinInput" class="btn btn-primary" (click)="addEntrevista(numero)">Añadir algo</button>
 
     </div>
 </div>

@@ -10,9 +10,14 @@ import { Label } from 'ng2-charts';
 })
 export class BarraComponent{
 
-  @Input() titulo:string= "Pruebas Título de Gráfica";
-
   //SI NO RECIBIMOS DEL PADRE, ENVIARIAMOS ESTOS DATOS 
+  //SERIAN LOS DATOS PREDEFINIDOS HASTA QUE RECIBAMOS OTROS DEL PADRE
+  numero:number= 0;
+  entrevistas:number= 0;
+  @Input() titulo:string= "Pruebas Título de Gráfica";
+  @Input() sinInput:boolean= false;
+  
+  
   @Output () alPadre:EventEmitter<number> = new EventEmitter();
 
   //@Input('labels1') labels1:string[]= [];
@@ -24,11 +29,11 @@ export class BarraComponent{
   ];
   @Input('labels2') barChartLabels: Label[] = ["Clases", "Cursos", "Youtube"];
   
-  entrevistas:number= 0;
+  
 
   addEntrevista(valor:number){
 
-    console.log(valor);
+    //console.log(valor);
     //console.log(this.data);
     
     
@@ -36,7 +41,7 @@ export class BarraComponent{
     this.entrevistas= valor;
   }
 
-
+  @Input() tituloInput:string= `Prueba de Output + ng Model`
 
   public barChartOptions: ChartOptions = {
     responsive: true,
