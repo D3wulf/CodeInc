@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioServiceService } from '../../services/usuario-service.service';
+import Swal from 'sweetalert2'
+
+declare const gapi:any;
 
 @Component({
   selector: 'app-login',
@@ -59,14 +64,103 @@ Login register and recover password Page
 })
 export class LoginComponent implements OnInit {
 
-  constructor( private router:Router) { }
+  public formularioEnviado= false;
+  public auth2:any;
 
-  ngOnInit(): void {
-  }
+  public formularioLogin = this.fb.group({
+    
+    email:[localStorage.getItem('email') || '',[Validators.required, Validators.email]],
+    password:['',[Validators.required]],
+    
+    recordar:[false],
+  });
+
+  constructor( private router:Router,
+    private fb:FormBuilder,
+    private us:UsuarioServiceService,
+    private ngZone:NgZone) { }
+  
 
   login(){
+    //this.router.navigateByUrl('/');
 
+    //console.log(this.formularioLogin.value);
+
+     if ( this.formularioLogin.get('recordar')!.value ) {
+        
+        localStorage.setItem('email', this.formularioLogin.get('email')!.value);
+
+      }else{
+        localStorage.removeItem('email');
+      }
+
+
+
+    // Realizar el posteo, enel servicio hacemos el post y al ser observable hay que suscribirse
+    this.us.loginUsuario(this.formularioLogin.value).subscribe(resp=>{
+
+    //console.log(resp);
+    console.log('usuario logeado en component')
     this.router.navigateByUrl('/');
+     },(err)=>{
+      Swal.fire("Error", err.error.msg , 'error')
+       
+     });
+
+
+  }
+  // de la info de google
+  onSuccess= (googleUser:any) =>{
+    //console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    let id_token = googleUser.getAuthResponse().id_token;
+    //console.log(id_token);
+  }
+
+  onFailure = (error:any)=> {
+    console.log(error);
+  }
+  renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': this.onSuccess,
+      'onfailure': this.onFailure
+    });
+
+    this.startApp();
+  }
+  ngOnInit(): void {
+    this.renderButton()
+  }
+
+  async startApp() {
+    await this.us.googleInit();
+    this.auth2 = this.us.auth2;
+
+    this.attachSignin( document.getElementById('my-signin2') );
+  };
+
+  attachSignin(element:any) {
+    
+    this.auth2.attachClickHandler(element, {},
+        (googleUser:any)=> {
+          const id_token = googleUser.getAuthResponse().id_token;
+          console.log(`attachSignin con ${id_token}`);
+          this.us.loginGoogle( id_token ).subscribe(resp=>{
+            this.ngZone.run(()=>{
+              this.router.navigateByUrl('/');
+
+            })
+           
+          });
+
+          
+        }, (error:any) => {
+          alert(JSON.stringify(error, undefined, 2));
+        });
   }
 
 }

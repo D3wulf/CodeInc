@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UsuarioServiceService } from '../../services/usuario-service.service';
+import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -57,11 +61,90 @@ Login register and recover password Page
 `
   ]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
-  constructor() { }
+  public formularioEnviado= false;
 
-  ngOnInit(): void {
+  public formularioRegistro = this.fb.group({
+    nombre:['Pepe',[Validators.required, Validators.minLength(3)]],
+    email:['m@m.com',[Validators.required, Validators.email]],
+    password:['123456',[Validators.required]],
+    password2:['123456',[Validators.required]],
+    terminos:[ true ,[Validators.required]],
+  },{
+    validators:this.passwordsIguales('password','password2')
+  });
+
+  constructor(private fb:FormBuilder, private us:UsuarioServiceService,private router:Router) { }
+
+
+  
+
+  crearUsuario(){
+    this.formularioEnviado=true;
+    console.log(this.formularioRegistro.value);
+
+     if ( this.formularioRegistro.invalid ) {
+        return;
+        }
+        // Realizar el posteo, enel servicio hacemos el post y al ser observable hay que suscribirse
+    this.us.crearUsuario(this.formularioRegistro.value).subscribe(resp=>{
+
+    console.log(resp);
+    console.log('usuario creado en component')
+    this.router.navigateByUrl('/');
+     },(err)=>{
+      Swal.fire("Error", err.error.msg , 'error')
+       
+     });
+     
   }
+
+  campoNoValido(campo:string):boolean{
+
+    if (this.formularioRegistro.get(campo)!.invalid && this.formularioEnviado){
+      return true;
+    }else{
+      return false;
+    }
+
+
+  }
+
+  aceptaTerminos(){
+    
+    return !this.formularioRegistro.get('terminos')!.value && this.formularioEnviado;
+    
+  }
+  //para que salga el mensaje de error de que no coinciden
+  passwordMatch(){
+    const pass1 = this.formularioRegistro.get('password')!.value
+    const pass2 = this.formularioRegistro.get('password2')!.value
+
+    if(pass1 === pass2){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+
+  passwordsIguales(pass1:string, pass2:string){
+
+    return( formGroup:FormGroup)=> {
+
+      const  pass1Control = formGroup.get(pass1);
+      const  pass2Control = formGroup.get(pass2);
+      if(pass1Control!.value===pass2Control!.value){
+
+        pass2Control!.setErrors(null);
+      }else{
+        pass2Control!.setErrors({noEsIgual:true});
+      }
+    }
+
+  }
+
+  
 
 }

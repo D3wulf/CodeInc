@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input} from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 
@@ -12,18 +12,20 @@ export class BarraComponent{
 
   //SI NO RECIBIMOS DEL PADRE, ENVIARIAMOS ESTOS DATOS 
   //SERIAN LOS DATOS PREDEFINIDOS HASTA QUE RECIBAMOS OTROS DEL PADRE
-  numero:number= 0;
-  entrevistas:number= 0;
+  
+  numero:number=0;
+  
   @Input() titulo:string= "Pruebas Título de Gráfica";
   @Input() sinInput:boolean= false;
   
   
   @Output () alPadre:EventEmitter<number> = new EventEmitter();
 
+
   //@Input('labels1') labels1:string[]= [];
   @Input('data1') barChartData: ChartDataSets[] = [
     { data: [20, 30, 2], label: 'Label1', backgroundColor: '#eeeeee' },
-    { data: [18, 25, 0], label: 'Label2' , backgroundColor: '#000000' },
+    { data: [18, 25, this.numero], label: 'Label2' , backgroundColor: '#000000' },
     { data: [17, 23, 0], label: 'Label3', backgroundColor: '#df7116' }
     
   ];
@@ -35,11 +37,16 @@ export class BarraComponent{
 
     //console.log(valor);
     //console.log(this.data);
-    
-    
+
     this.alPadre.emit(valor);
-    this.entrevistas= valor;
+    console.log(`desde el hijo tenemos ${valor}`);
+    
+
   }
+
+  
+
+  
 
   @Input() tituloInput:string= `Prueba de Output + ng Model`
 
@@ -55,6 +62,8 @@ export class BarraComponent{
 
 
   constructor() { }
+  
+  
   // ngOnInit(): void {
 
   //   this.barChartLabels = this.labels1;

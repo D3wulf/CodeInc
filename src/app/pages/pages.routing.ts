@@ -7,6 +7,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 const routes: Routes = [
@@ -14,6 +15,8 @@ const routes: Routes = [
   {
     path:'dashboard', 
     component:PagesComponent,
+    //el guard
+    canActivate:[AuthGuard],
 
     //RUTAS HIJAS, UNA OPCION VALIDA Y SIMPLE SIN USAR EL MODULO
 
