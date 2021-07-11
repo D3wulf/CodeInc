@@ -135,9 +135,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.renderButton()
   }
-
+  //inicio de google sign in
   async startApp() {
     await this.us.googleInit();
+
     this.auth2 = this.us.auth2;
 
     this.attachSignin( document.getElementById('my-signin2') );

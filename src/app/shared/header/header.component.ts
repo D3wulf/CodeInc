@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioServiceService } from '../../services/usuario-service.service';
 
 export interface Persona{
@@ -24,6 +25,7 @@ export interface Persona{
 })
 export class HeaderComponent implements OnInit {
 
+  public usuario:Usuario;
   public personas:Persona[]= [
     {
       name:'Mario Sánchez',
@@ -45,7 +47,13 @@ export class HeaderComponent implements OnInit {
 
 },]
 
-  constructor(private us:UsuarioServiceService) { }
+  constructor(private us:UsuarioServiceService) {
+    this.usuario = us.usuario;
+    console.log(`hola desde ${this.usuario.img}`);
+   }
+
+  
+
   //LOGOUT
   logout(){
 

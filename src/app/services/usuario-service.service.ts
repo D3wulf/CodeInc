@@ -6,6 +6,7 @@ import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Usuario } from '../models/usuario.model';
 
 
 
@@ -20,11 +21,21 @@ declare const gapi: any;
 })
 export class UsuarioServiceService {
   auth2: any;
+
+  public usuario!:Usuario;
  //fetch ---> javascript ES6     //angular--->httpclient--->observables
 
 
   constructor(private http:HttpClient,private router: Router,
     private ngZone: NgZone ) {this.googleInit();}
+
+    get token():string{
+      return localStorage.getItem('token') || '';
+    }
+
+    get uid():string{
+      return this.usuario.uid || '';
+    }
 
     googleInit() {
 
@@ -56,19 +67,25 @@ export class UsuarioServiceService {
     //QUeremos coger el token de google y tranformarlo en uno nuestro
     validarToken():Observable<boolean>{
 
-      const token = localStorage.getItem('token') || '';
-
+      console.log(`primero token= ${this.token}`)
       return this.http.get(`${url}/login/renew`, {
         headers:{
-      'x-token':token
+      'x-token':this.token
     }
     })
     .pipe(
-      tap((resp:any)=>{
+      map((resp:any)=>{
+        //console.log(`segundo token= ${resp.token}`);
+        const {email,google, nombre, role, uid, img=''} = resp.usuario;
+        //cuidado el orden
+        this.usuario = new Usuario(nombre,email,'',img ,google,role,uid);
+
         localStorage.setItem('token', resp.token)
         console.log(`el nuevo token seria ${resp.token}`);
+
+        return true;
       }),
-      map(resp=>true),
+      //map(resp=>true),
       catchError(error=> of(false))  
     )
   }
@@ -81,6 +98,18 @@ export class UsuarioServiceService {
           localStorage.setItem('token', resp.token)
         })
       )
+  }
+
+  actualizarPerfil(data:{email:string,nombre:string,role:string}){
+
+    // data= {...data,
+    // role:this.usuario!.role}
+
+    return this.http.put(`${url}/usuarios/${this.uid}`,data, {
+      headers:{
+    'x-token':this.token
+  }
+  });
   }
 
   loginUsuario(datos:LoginForm){
