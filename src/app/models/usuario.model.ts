@@ -8,25 +8,25 @@ export class Usuario{
         public nombre:string,
         public email:string,
         public password:string,
-        public img?:string,
-        public google?: boolean,
-        public role?:string,
-        public uid?:string
+        public img:string,
+        public google: boolean,
+        public role:string,
+        public uid:string
 
 
     ){}
 
     get imagenUrl(){
 
-        if(this.img!.includes('https')){
-
+        if(!this.img){
+            return `${url}/upload/usuarios/hola.png`; 
+        }else if(this.img!.includes('https')){
             return this.img;
-        }
-        if(this.img){
-
+        }else if(this.img){
             return `${url}/upload/usuarios/${this.img}`;
-        }else{
-            return `${url}/upload/hola.png`;   
+        }
+        else{
+            return `${url}/upload/usuarios/hola.png`;   
         }
         
     }

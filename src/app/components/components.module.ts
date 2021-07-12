@@ -4,20 +4,22 @@ import { IncrementadorComponent } from './incrementador/incrementador.component'
 import { FormsModule } from '@angular/forms';
 import { BarraComponent } from './barra/barra.component';
 import { ChartsModule } from 'ng2-charts';
+import { ModalComponent } from './modal/modal.component';
 
 
 
 @NgModule({
   declarations: [
     IncrementadorComponent,
-    BarraComponent
+    BarraComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,FormsModule,
     ChartsModule
   ],
   exports:[
-    IncrementadorComponent,BarraComponent
+    IncrementadorComponent,BarraComponent,ModalComponent
   ]
 })
 export class ComponentsModule { }

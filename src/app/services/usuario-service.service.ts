@@ -2,11 +2,12 @@ import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interfaces';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, delay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Usuario } from '../models/usuario.model';
+import Swal from 'sweetalert2';
 
 
 
@@ -35,6 +36,15 @@ export class UsuarioServiceService {
 
     get uid():string{
       return this.usuario.uid || '';
+    }
+
+    get headers(){
+
+      return {
+        headers:{
+          'x-token':this.token
+        }
+      }
     }
 
     googleInit() {
@@ -102,14 +112,12 @@ export class UsuarioServiceService {
 
   actualizarPerfil(data:{email:string,nombre:string,role:string}){
 
-    // data= {...data,
-    // role:this.usuario!.role}
+    data={
+      ...data,role:this.usuario.role
+    }
+    
 
-    return this.http.put(`${url}/usuarios/${this.uid}`,data, {
-      headers:{
-    'x-token':this.token
-  }
-  });
+    return this.http.put(`${url}/usuarios/${this.uid}`,data, this.headers);
   }
 
   loginUsuario(datos:LoginForm){
@@ -137,6 +145,39 @@ export class UsuarioServiceService {
 
   }
 
+  //Para la pagina usuarios
+   cargarUsuarios( desde:number=0){
+    const miUrl = `${url}/usuarios?desde=${desde}`;
+    return this.http.get<{totalRegistros:number, usuarios:Usuario[]}>(miUrl,this.headers)
+    //TODO ESTO PARA CARGAR LAS IMAGENES DE LOS USUARIOS EN LA TABLA...
+    .pipe(
+      map( resp => {
+        const usuarios = resp.usuarios.map(
+          user =>new Usuario(user.nombre, user.email,'',user.img, user.google,user.role,user.uid));
+        return{
+          totalRegistros: resp.totalRegistros,
+          usuarios
+
+        }
+      })
+      
+
+    )
+   }
+
+    eliminarUsuario(usuario:Usuario){
+      const miUrl = `${url}/usuarios/${usuario.uid}`;
+      return this.http.delete(miUrl,this.headers);
+      
+
+
+    }
+    //cambiar role en la page usuarios
+    cambioRole(usuario:Usuario){
+
     
+
+      return this.http.put(`${url}/usuarios/${usuario.uid}`,usuario, this.headers);
+    }
 
 }
