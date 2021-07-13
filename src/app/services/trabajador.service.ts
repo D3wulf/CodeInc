@@ -47,7 +47,24 @@ export class TrabajadorService {
    
    }
 
-   crearTrabajador(trabajador:Trabajador){
+   cargarTrabajadorId(id:string){
+
+    const miUrl = `${url}/trabajadores/${id}`;
+    return this.http.get<any>(miUrl,this.headers)
+    .pipe(
+      map( (resp: { 
+      ok:boolean, trabajador:Trabajador}) => 
+      resp.trabajador
+      
+      )
+      
+    );
+
+
+
+   }
+
+   crearTrabajador(trabajador:{nombre:string, empresa:string}){
 
 
     //Recordar post ( url, datos, headers)

@@ -1,15 +1,15 @@
 <div class="row">
-    <div class="col">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Menú de creación de trabajadores</h4>
                 <h6 class="card-subtitle">Sin juniors no hay seniors</h6>
-                <form class="form-horizontal p-t-20">
-                    <div class="form-group row">
+                <form class="form-horizontal p-t-20" [formGroup]="trabajadorForm" (ngSubmit)="guardar()">
+                    <div class="form-group row" *ngIf="trabajadorSeleccionado">
                         <label for="exampleInputuname3" class="col-sm-3 control-label">Imagen</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <img src="http://localhost:3000/api/upload/usuarios/f2c80920-38ba-46e5-9445-61f977ddba8a.png" class="imagen-med" alt="">
+                                <img [src]="trabajadorSeleccionado.img | imagen:'trabajadores'" class="imagen-med" alt="">
                             </div>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="exampleInputuname3" placeholder="Nombre">
+                                <input type="text" class="form-control" id="" formControlName="nombre" placeholder="Nombre">
                             </div>
                         </div>
                     </div>
@@ -27,10 +27,10 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="ti-world"></i></div>
-                                <select class="form-control" name="" id="">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
+                                <select class="form-control" formControlName="empresa" name="" id="">
+                                    <option value="">Seleccione Empresa</option>
+                                    <option *ngFor="let item of empresas"  [value]="item._id">{{item.nombre}}</option>
+                                    
                                 </select>
                             </div>
                         </div>
@@ -38,19 +38,19 @@
 
                     <div class="form-group row m-b-0">
                         <div class="offset-sm-3 col-sm-9">
-                            <button type="submit" class="btn btn-success waves-effect waves-light"><i class="ti-save"></i> Guardar</button>
+                            <button type="submit" [disabled]="trabajadorForm.invalid" class="btn btn-success waves-effect waves-light"><i class="ti-save"></i> Guardar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col animated fadeIn fast" *ngIf="empresaSeleccionada">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Empresa</h4>
-                <h6 class="card-subtitle">Empleado en</h6>
-                <img src="http://localhost:3000/api/upload/usuarios/f2c80920-38ba-46e5-9445-61f977ddba8a.png" class="imagen-med" alt="">
+                <h6 class="card-subtitle">{{empresaSeleccionada.nombre}}</h6>
+                <img class="img-thumbnail" [src]="empresaSeleccionada.img | imagen:'empresas'" class="imagen-med" alt="">
             </div>
         </div>
     </div>
