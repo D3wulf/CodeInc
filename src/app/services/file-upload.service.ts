@@ -19,9 +19,6 @@ export class FileUploadService {
     tipo:'usuarios'|'empresas'|'trabajadores', 
     id:string
     ){
-
-
-
     try{
 
       const urlFoto = `${url}/upload/${tipo}/${id}`;
@@ -35,21 +32,15 @@ export class FileUploadService {
         headers: {'x-token': localStorage.getItem('token')||''},
         body:formData
       });
-
-      
-
       const data = await resp.json();
-      console.log(data);
+      //console.log(data);
 
       if(data.ok){
         return data.img;
       }else{
-        console.log(data.msg);
+        //console.log(data.msg);
         return false;
       }
-
-      
-
       //console.log(resp);
         return 'Nombre de la imagen';
         

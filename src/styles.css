@@ -20,8 +20,11 @@
 }
 
 .imagen {
-    width: 50px;
-    border-radius: 100%;
+    width: 75px;
+}
+
+.imagen-med {
+    width: 140px;
 }
 
 .fondo-modal-imagen {

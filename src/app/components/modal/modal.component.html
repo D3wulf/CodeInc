@@ -11,8 +11,8 @@
 
                     <h3>Seleccione imagen</h3>
                     <div class="text-center">
-                        <img *ngIf="!imagenParaSubir" [src]="modal.img" class="img-avatar" alt="Imagen del usuario"><br>
-                        <img *ngIf="imagenParaSubir" [src]="imagenParaSubir" class="img-avatar" alt="Imagen del usuario"><br>
+                        <img *ngIf="!imagenParaSubir" [src]="modal.img" class="img-avatar" alt="Imagen del usuario1"><br>
+                        <img *ngIf="imagenParaSubir" [src]="imagenParaSubir" class="img-avatar" alt="Imagen del usuario2"><br>
                     </div>
                     <input type="file" (change)="cambiarImagen($event)">
                 </div>

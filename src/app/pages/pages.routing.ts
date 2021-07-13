@@ -10,6 +10,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
+import { EmpresasComponent } from './mantenimiento/empresas/empresas.component';
+import { TrabajadoresComponent } from './mantenimiento/trabajadores/trabajadores.component';
+import { TrabajadorComponent } from './mantenimiento/trabajadores/trabajador.component';
 
 
 const routes: Routes = [
@@ -44,6 +47,12 @@ const routes: Routes = [
         path:'perfil', component: PerfilComponent, data:{titulo:'Perfil Usuario'}
       },{
         path:'usuarios', component: UsuariosComponent, data:{titulo:'Usuarios'}
+      },{
+        path:'empresas', component: EmpresasComponent, data:{titulo:'Empresas'}
+      },{
+        path:'trabajadores', component: TrabajadoresComponent, data:{titulo:'Trabajadores'}
+      },{
+        path:'trabajadores/:id', component: TrabajadorComponent, data:{titulo:'Trabajadores por id '}
       },
       
       // {

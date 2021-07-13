@@ -149,7 +149,7 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler(element, {},
         (googleUser:any)=> {
           const id_token = googleUser.getAuthResponse().id_token;
-          console.log(`attachSignin con ${id_token}`);
+          //console.log(`attachSignin con ${id_token}`);
           this.us.loginGoogle( id_token ).subscribe(resp=>{
             this.ngZone.run(()=>{
               this.router.navigateByUrl('/');

@@ -9,12 +9,12 @@ const url = environment.base_url;
 export class ModalService {
 
   public _ocultarModal:boolean=true;
-  public tipo!:string;
+  public tipo!:'usuarios'|'empresas'|'trabajadores';
   public id!:string;
   public img!:string;
 
   //todo esto para recargar la pagina y que se hagan efectivos los cambios...
-  public nuevaImgRecarga:EventEmitter<string>=new EventEmitter<string>();
+  public nuevaImgRecarga:  EventEmitter<string> = new EventEmitter<string>();
 
 
   get ocultarModal(){
@@ -22,12 +22,11 @@ export class ModalService {
     return this._ocultarModal;
   }
 
-  abrirModal(
-    tipo:'usuarios'|'empresas'|'trabajadores',
-    id:string, 
-    img:string='sin-imagen'){
+  abrirModal(tipo:'usuarios'|'empresas'|'trabajadores',id:string, img:string='no-img')
+    {
     this.tipo=tipo;
     this.id=id;
+    
     if(img.includes('https')){
 
       this.img= img;

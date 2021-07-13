@@ -85,7 +85,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.buscar.buscar('usuarios', termino).subscribe(resp=>{
+    this.buscar.buscar('usuarios', termino).subscribe((resp:any)=>{
 
       this.usuariosBD = resp;
       })
@@ -142,7 +142,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   }
   abrirModal(user:Usuario){
-    console.log(user);
+    //console.log(user);
     this.modal.abrirModal('usuarios',user.uid,user.img);
   }
 }

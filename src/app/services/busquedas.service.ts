@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
+import { Empresa } from '../models/empresa.model';
+import { Trabajador } from '../models/trabajador.model';
+
 
 const url= environment.base_url;
 
@@ -32,8 +35,20 @@ export class BusquedasService {
     
   }
 
-  buscar(tipo:'usuarios'|'trabajadores'|'empresas',termino:string){
+
+  private generarEmpresas(resultado:any[]):Empresa[]{
+
+    return resultado;
     
+  }
+  private generarTrabajadores(resultado:any[]):Trabajador[]{
+
+    return resultado;
+    
+  }
+
+  buscar(tipo:'usuarios'|'trabajadores'|'empresas',termino:string){
+    console.log(tipo,termino);
     const miUrl = `${url}/todo/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>(miUrl,this.headers)
     .pipe(
@@ -41,7 +56,15 @@ export class BusquedasService {
           //console.log(resp);
           switch (tipo) {
             case 'usuarios':
-              return this.generarUsuarios(resp.usuario)
+              return this.generarUsuarios(resp.usuario);
+             
+            case 'empresas':
+              return this.generarEmpresas(resp.empresa);
+             
+            case 'trabajadores':
+              //console.log(resp);
+              return this.generarTrabajadores(resp.trabajador);
+              
               
           
             default:

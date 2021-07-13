@@ -19,6 +19,10 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
+import { EmpresasComponent } from './mantenimiento/empresas/empresas.component';
+import { TrabajadoresComponent } from './mantenimiento/trabajadores/trabajadores.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { TrabajadorComponent } from './mantenimiento/trabajadores/trabajador.component';
 
 
 
@@ -35,7 +39,10 @@ import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
     PromesasComponent,
     RxjsComponent,
     PerfilComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    EmpresasComponent,
+    TrabajadoresComponent,
+    TrabajadorComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +51,8 @@ import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
     AuthModule,
     FormsModule,
     ComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    PipesModule
     
   ],
   exports:[

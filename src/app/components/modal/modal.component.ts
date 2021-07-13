@@ -44,8 +44,6 @@ export class ModalComponent implements OnInit {
     const url64 = reader.readAsDataURL(event.target.files[0]);
     reader.onloadend =  ()=>{
       this.imagenParaSubir= reader.result;
-      console.log(reader.result);
-
     }
 
     try{
@@ -66,9 +64,9 @@ export class ModalComponent implements OnInit {
   subirImagen(){
 
     const id= this.modal.id
-
+    const tipo = this.modal.tipo;
     this.ups
-    .actualizarFoto(this.ImagenSubir,'usuarios', id)
+    .actualizarFoto(this.ImagenSubir, tipo, id)
     .then(img => {
     
     Swal.fire('Guardado', 'Actualizado correctamente', 'success');
