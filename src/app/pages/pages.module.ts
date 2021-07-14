@@ -23,6 +23,7 @@ import { EmpresasComponent } from './mantenimiento/empresas/empresas.component';
 import { TrabajadoresComponent } from './mantenimiento/trabajadores/trabajadores.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { TrabajadorComponent } from './mantenimiento/trabajadores/trabajador.component';
+import { BuscarComponent } from './buscar/buscar.component';
 
 
 
@@ -42,7 +43,8 @@ import { TrabajadorComponent } from './mantenimiento/trabajadores/trabajador.com
     UsuariosComponent,
     EmpresasComponent,
     TrabajadoresComponent,
-    TrabajadorComponent
+    TrabajadorComponent,
+    BuscarComponent
   ],
   imports: [
     CommonModule,

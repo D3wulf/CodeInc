@@ -47,6 +47,13 @@ export class UsuarioServiceService {
       }
     }
 
+    get role():'ADMIN_ROLE' | 'USER_ROLE'{
+
+      return this.usuario.role;
+    }
+
+
+
     googleInit() {
 
       return new Promise<void>( resolve => {
@@ -66,6 +73,9 @@ export class UsuarioServiceService {
     logout(){
 
         localStorage.removeItem('token');
+        localStorage.removeItem('menu');
+
+        //TODO:BORRAR MENU
         
         this.auth2.signOut().then( ()=> {
           this.ngZone.run(()=>{
@@ -89,8 +99,10 @@ export class UsuarioServiceService {
         const {email,google, nombre, role, uid, img=''} = resp.usuario;
         //cuidado el orden
         this.usuario = new Usuario(nombre,email,'',img ,google,role,uid);
+        //grabaciones localStorage
+        localStorage.setItem('token', resp.token);
+        localStorage.setItem('menu', JSON.stringify(resp.menu));
 
-        localStorage.setItem('token', resp.token)
         console.log(`el nuevo token seria ${resp.token}`);
 
         return true;
@@ -105,7 +117,8 @@ export class UsuarioServiceService {
       //al ser post, el segundo argumento es la data, esto comunicará con el backend y enviara los datos
       return this.http.post(`${url}/usuarios`, datos).pipe(
         tap((resp:any)=>{
-          localStorage.setItem('token', resp.token)
+          localStorage.setItem('token', resp.token);
+          localStorage.setItem('menu', JSON.stringify(resp.menu));
         })
       )
   }
@@ -124,7 +137,9 @@ export class UsuarioServiceService {
 
       return this.http.post(`${url}/login`, datos).pipe(
         tap((resp:any)=>{
-          localStorage.setItem('token', resp.token)
+          localStorage.setItem('token', resp.token);
+          localStorage.setItem('menu', JSON.stringify(resp.menu));
+
         })
       )
       
@@ -138,7 +153,8 @@ export class UsuarioServiceService {
         tap((resp:any)=>{
           console.log('Login de google');
           console.log(resp.token);
-          localStorage.setItem('token', resp.token)
+          localStorage.setItem('token', resp.token);
+          localStorage.setItem('menu', JSON.stringify(resp.menu));
         })
       );
       

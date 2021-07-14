@@ -48,7 +48,7 @@ export class BusquedasService {
   }
 
   buscar(tipo:'usuarios'|'trabajadores'|'empresas',termino:string){
-    console.log(tipo,termino);
+    //console.log(tipo,termino);
     const miUrl = `${url}/todo/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>(miUrl,this.headers)
     .pipe(
@@ -73,6 +73,12 @@ export class BusquedasService {
         }));
       }
       
+      //busquedas generales web
+    buscarEnHeader( termino:string){
 
+
+      const miUrl = `${url}/todo/${termino}`;
+      return this.http.get<any[]>(miUrl,this.headers);
+    }
   
 }

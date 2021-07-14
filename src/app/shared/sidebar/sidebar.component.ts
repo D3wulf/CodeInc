@@ -11,14 +11,19 @@ import { Usuario } from '../../models/usuario.model';
 })
 export class SidebarComponent implements OnInit {
 
+  //Modoficamos el menu porque ahora viene del backend
+
   public usuario:Usuario;
   menuItems:any[]=[];
 
-  constructor(private sidebarService:SidebarService,
+  constructor(public sidebarService:SidebarService,
     private us:UsuarioServiceService) {
     this.usuario = us.usuario;
+    this.sidebarService.cargaMenu()
+    //console.log(this.sidebarService.menu);
+    
     this.menuItems = sidebarService.menu;
-    //console.log(this.menuItems);
+    
    }
 
   ngOnInit(): void {

@@ -1,0 +1,96 @@
+<div class="row animated fadeIn fast">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Usuarios</h3>
+                <div class="alert alert-info" *ngIf="usuarios.length===0">
+                    <h4 class="alert-heading"></h4>
+                    <p>No hay usuarios que mostrar</p>
+
+
+                </div>
+                <div class="table-responsive" *ngIf="usuarios.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of usuarios" class="animated fadeIn fast">
+                                <td><img class="imagen" [src]="item.img | imagen:'usuarios'" alt=""></td>
+                                <td>{{item.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Trabajadores</h3>
+                <div class="alert alert-info" *ngIf="trabajadores.length===0">
+                    <h4 class="alert-heading"></h4>
+                    <p>No hay trabajadores que mostrar</p>
+
+
+                </div>
+                <div class="table-responsive" *ngIf="trabajadores.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of trabajadores" class="animated fadeIn fast">
+                                <td><img class="imagen" [src]="item.img | imagen:'trabajadores'" alt=""></td>
+                                <td> <a class="cursor" [routerLink]="['/dashboard/trabajadores/', item._id]">{{item.nombre}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Empresas</h3>
+                <div class="alert alert-info" *ngIf="empresas.length===0">
+                    <h4 class="alert-heading"></h4>
+                    <p>No hay empresas que mostrar</p>
+
+
+                </div>
+                <div class="table-responsive" *ngIf="empresas.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of empresas" class="animated fadeIn fast">
+                                <td><img class="imagen" [src]="item.img | imagen:'empresas'" alt=""></td>
+                                <td>{{item.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

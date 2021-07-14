@@ -13,6 +13,8 @@ import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
 import { EmpresasComponent } from './mantenimiento/empresas/empresas.component';
 import { TrabajadoresComponent } from './mantenimiento/trabajadores/trabajadores.component';
 import { TrabajadorComponent } from './mantenimiento/trabajadores/trabajador.component';
+import { BuscarComponent } from './buscar/buscar.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 
 const routes: Routes = [
@@ -27,10 +29,9 @@ const routes: Routes = [
 
     //despues del componente se puede mandar data
     children:[
-      {
-        path:'', component:DashboardComponent, data:{titulo:'Dashboard'}
-      },{
-        path:'progress', component:ProgressComponent, data:{titulo:'Progress Bar'}
+      { path:'', component:DashboardComponent, data:{titulo:'Dashboard'}
+      },
+      {path:'progress', component:ProgressComponent, data:{titulo:'Progress Bar'}
       },
       {
         path:'grafica1', component: Grafica1Component, data:{titulo:'Gráficas'}
@@ -45,15 +46,19 @@ const routes: Routes = [
       },
       {
         path:'perfil', component: PerfilComponent, data:{titulo:'Perfil Usuario'}
-      },{
-        path:'usuarios', component: UsuariosComponent, data:{titulo:'Usuarios'}
+      },
+      //Ruta Admin
+      {
+        path:'usuarios',canActivate:[AdminGuard], component: UsuariosComponent, data:{titulo:'Usuarios'}
       },{
         path:'empresas', component: EmpresasComponent, data:{titulo:'Empresas'}
       },{
         path:'trabajadores', component: TrabajadoresComponent, data:{titulo:'Trabajadores'}
       },{
         path:'trabajadores/:id', component: TrabajadorComponent, data:{titulo:'Trabajadores por id '}
-      },
+      },{
+        path:'buscar/:termino', component:BuscarComponent,data:{titulo:'Búsquedas en la web '}
+      }
       
       // {
       //   path:'', redirectTo:'dashboard',pathMatch:'full'

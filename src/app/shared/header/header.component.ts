@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioServiceService } from '../../services/usuario-service.service';
+import { Router } from '@angular/router';
 
 export interface Persona{
 
@@ -47,7 +48,8 @@ export class HeaderComponent implements OnInit {
 
 },]
 
-  constructor(private us:UsuarioServiceService) {
+  constructor(private us:UsuarioServiceService,
+              private router:Router) {
     this.usuario = us.usuario;
     console.log(`hola desde ${this.usuario.img}`);
    }
@@ -61,6 +63,16 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  buscar(termino:string){
+
+    if(termino.length=== 0 ){
+      return;
+    }
+
+    this.router.navigateByUrl(`/dashboard/buscar/${termino}`)
+
   }
 
 }
